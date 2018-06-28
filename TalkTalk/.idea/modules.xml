@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TalkTalk.iml" filepath="$PROJECT_DIR$/TalkTalk.iml" />
-      <module fileurl="file://E:\Me\TalkTalk\TalkTalk\TalkTalk.iml" filepath="E:\Me\TalkTalk\TalkTalk\TalkTalk.iml" />
+      <module fileurl="file://E:/Me/TalkTalk/TalkTalk/TalkTalk.iml" filepath="E:/Me/TalkTalk/TalkTalk/TalkTalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\Me\TalkTalk\TalkTalk\app\app.iml" filepath="E:\Me\TalkTalk\TalkTalk\app\app.iml" />
+      <module fileurl="file://E:/Me/TalkTalk/TalkTalk/app/app.iml" filepath="E:/Me/TalkTalk/TalkTalk/app/app.iml" />
     </modules>
   </component>
 </project>
