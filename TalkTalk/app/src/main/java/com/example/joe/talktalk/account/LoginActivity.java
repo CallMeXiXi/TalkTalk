@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.example.joe.talktalk.R;
+import com.example.joe.talktalk.account.register.RegisterActivity;
 import com.example.joe.talktalk.base.BaseAppCompatActivity;
+import com.example.joe.talktalk.utils.ToastUtil;
 
 /**
  * Created by Administrator on 2018/6/28 0028.
@@ -14,6 +17,7 @@ import com.example.joe.talktalk.base.BaseAppCompatActivity;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
+    private TextView mTvRegister;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +31,7 @@ public class LoginActivity extends BaseAppCompatActivity {
 
     @Override
     public void initView() {
-
+        click(R.id.tv_register);
     }
 
     @Override
@@ -42,7 +46,11 @@ public class LoginActivity extends BaseAppCompatActivity {
 
     @Override
     public void doClick(int viewId) {
-
+        switch (viewId){
+            case R.id.tv_register:
+                RegisterActivity.launch(this);
+                break;
+        }
     }
 
 

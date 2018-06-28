@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">TalkTalk</string>
+    <string-array name="sex_array">
+        <item>保密</item>
+        <item>男</item>
+        <item>女</item>
+    </string-array>
 
+    <string-array name="select_user_icon">
+        <item>拍照</item>
+        <item>相册选择</item>
+    </string-array>
 
 
     <string name="loading">加载中..</string>
@@ -8,4 +17,6 @@
     <string name="phoneNumberError">手机号码输入错误</string>
     <string name="passwordError">请设置登录密码</string>
     <string name="passwordLengthGreat6">密码长度设置在6~16之间</string>
+    <string name="verifyCodeError">验证码不能为空</string>
+    <string name="pick_user_icon">头像选择</string>
 </resources>
