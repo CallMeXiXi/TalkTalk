@@ -82,13 +82,21 @@ public class Register1Fragment extends BaseFragment {
     @Override
     public void doClick(int viewId) {
         switch (viewId) {
+<<<<<<< HEAD
             case R.id.fb_next://点击下一步按钮
+=======
+            case R.id.fb_next:
+>>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
                 phoneNumber = mEtPhoneNumber.getText().toString();
                 password = mEtPassword.getText().toString();
 
                 if (checkData()) {
                     // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
+<<<<<<< HEAD
                     SMSSDK.getVerificationCode(Constants.CHINA_COUNTRY, phoneNumber);
+=======
+                    SMSSDK.getVerificationCode("86", phoneNumber);
+>>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
                 }
                 break;
         }
