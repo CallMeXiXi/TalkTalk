@@ -13,6 +13,7 @@ public class Constants {
     public static final String CHINA_COUNTRY = "86";
     public static final String PHONE_NUMBER = "phone_number";
     public static final String PHONE_PASSWORD = "phone_password";
+    public static final String VERIFY_CODE = "verify_code";
     //请求权限码
     public static final int PERMISSION_CAMERA = 100;
     public static final int PERMISSION_ALBUM = 101;

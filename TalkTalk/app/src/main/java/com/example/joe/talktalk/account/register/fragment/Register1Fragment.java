@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.cengalabs.flatui.views.FlatButton;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.account.register.RegisterActivity;
 import com.example.joe.talktalk.base.BaseFragment;
@@ -63,7 +62,7 @@ public class Register1Fragment extends BaseFragment {
 
     @Override
     public void initView(View view) {
-        click(view, R.id.fb_next);
+        click(view, R.id.btn_next);
         mEtPhoneNumber = $(view, R.id.et_phone_number);
         mEtPassword = $(view, R.id.et_password);
         initSMS();
@@ -82,21 +81,13 @@ public class Register1Fragment extends BaseFragment {
     @Override
     public void doClick(int viewId) {
         switch (viewId) {
-<<<<<<< HEAD
-            case R.id.fb_next://点击下一步按钮
-=======
-            case R.id.fb_next:
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
+            case R.id.btn_next://点击下一步按钮
                 phoneNumber = mEtPhoneNumber.getText().toString();
                 password = mEtPassword.getText().toString();
 
                 if (checkData()) {
                     // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
-<<<<<<< HEAD
                     SMSSDK.getVerificationCode(Constants.CHINA_COUNTRY, phoneNumber);
-=======
-                    SMSSDK.getVerificationCode("86", phoneNumber);
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
                 }
                 break;
         }

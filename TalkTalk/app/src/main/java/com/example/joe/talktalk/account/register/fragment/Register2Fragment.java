@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.cengalabs.flatui.views.FlatButton;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.account.register.RegisterActivity;
 import com.example.joe.talktalk.base.BaseFragment;
@@ -28,7 +27,6 @@ import cn.smssdk.SMSSDK;
 
 public class Register2Fragment extends BaseFragment {
 
-<<<<<<< HEAD
     //验证码
     private String code;
     //第一个界面传来的手机号码及密码
@@ -38,12 +36,6 @@ public class Register2Fragment extends BaseFragment {
     private Context mContext;
     private RegisterActivity mActivity;
     //静态实体类变量
-=======
-    private Context mContext;
-    private RegisterActivity mActivity;
-    private String phoneNumber;
-    private String password;
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
     private static Register2Fragment instance;
     //控件
     private Button mBtnGetCode;
@@ -51,30 +43,16 @@ public class Register2Fragment extends BaseFragment {
     //倒计时控件
     private CountDownTimer timer;
 
-<<<<<<< HEAD
-=======
-    private String code;
-    private EditText mEtCode;
 
-    public Register2Fragment(String phoneNumber, String password) {
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-    }
-
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
     public static Register2Fragment getInstance(String phoneNumber, String password) {
         if (instance == null) {
             synchronized (Register2Fragment.class) {
                 if (instance == null) {
-<<<<<<< HEAD
                     instance = new Register2Fragment();
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.PHONE_NUMBER, phoneNumber);
                     bundle.putString(Constants.PHONE_PASSWORD, password);
                     instance.setArguments(bundle);
-=======
-                    instance = new Register2Fragment(phoneNumber, password);
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
                 }
             }
         }
@@ -88,28 +66,19 @@ public class Register2Fragment extends BaseFragment {
         init(view);
         mContext = getActivity();
         mActivity = (RegisterActivity) getActivity();
-<<<<<<< HEAD
         return view;
-=======
-        return super.onCreateView(inflater, container, savedInstanceState);
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
     }
 
     @Override
     public void initView(View view) {
         mEtCode = $(view, R.id.et_verify_code);
-<<<<<<< HEAD
         mBtnGetCode = $(view, R.id.btn_get_verify_code);
         click(view, R.id.btn_get_verify_code);
-        click(view, R.id.fb_next);
+        click(view, R.id.btn_next);
 
         initSMS();
         //发送验证码
         startTimer();
-=======
-        click(view, R.id.btn_get_verify_code);
-        click(view, R.id.fb_next);
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
     }
 
     @Override
@@ -125,7 +94,6 @@ public class Register2Fragment extends BaseFragment {
 
     @Override
     public void doClick(int viewId) {
-<<<<<<< HEAD
         switch (viewId) {
             case R.id.btn_get_verify_code://重新发送验证码
                 // 请求验证码，其中country表示国家代码，如“86”；phone表示手机号码，如“13800138000”
@@ -133,7 +101,7 @@ public class Register2Fragment extends BaseFragment {
                 //发送验证码
                 startTimer();
                 break;
-            case R.id.fb_next://下一步按钮
+            case R.id.btn_next://下一步按钮
                 code = mEtCode.getText().toString();
                 if (code != null) {
                     // 提交验证码，其中的code表示验证码
@@ -171,7 +139,7 @@ public class Register2Fragment extends BaseFragment {
             int result = msg.arg2;
             int event = msg.arg1;
             if (result == SMSSDK.RESULT_COMPLETE) {
-                if (result == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//验证码提交成功
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//验证码提交成功
                     resetTimer();
                     mActivity.changeFragment(Register3Fragment.getInstance(phoneNumber, password));
                 }
@@ -179,7 +147,9 @@ public class Register2Fragment extends BaseFragment {
                     showLongToast("验证码已发送");
                 }
             } else {
-                showLongToast("验证码错误");
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    showLongToast("验证码错误");
+                }
             }
         }
     };
@@ -202,7 +172,7 @@ public class Register2Fragment extends BaseFragment {
             @Override
             public void onFinish() {
                 mBtnGetCode.setEnabled(true);
-                mBtnGetCode.setText("重新发送");
+                mBtnGetCode.setText("获取验证码");
             }
         }.start();
     }
@@ -224,13 +194,5 @@ public class Register2Fragment extends BaseFragment {
         super.onDestroy();
         resetTimer();
         SMSSDK.unregisterAllEventHandler();
-=======
-        switch (viewId){
-            case R.id.btn_get_verify_code:
-                break;
-            case R.id.fb_next:
-                break;
-        }
->>>>>>> d8f5feae05d7362e8b32636e1cf9005830ed8840
     }
 }

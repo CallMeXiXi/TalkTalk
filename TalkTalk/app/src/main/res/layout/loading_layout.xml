@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:gravity="center"
+    android:gravity="center|left"
     android:orientation="horizontal">
 
     <ProgressBar
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginLeft="@dimen/main_margin_left_16"/>
+        android:layout_marginLeft="24dp" />
 
     <TextView
         android:id="@+id/tv_tips"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/main_margin_left_10"
-        android:text="@string/loading"/>
+        android:text="@string/loading" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.joe.talktalk.base;
 
 import android.app.Application;
+import android.os.StrictMode;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.example.joe.talktalk.common.Constants;
@@ -30,5 +31,10 @@ public class TTApplication extends Application {
 
         //mob短信
         MobSDK.init(this);
+
+        // android 7.0系统解决拍照的问题
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 }

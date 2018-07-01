@@ -18,22 +18,24 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.cengalabs.flatui.views.FlatButton;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.SaveCallback;
+import com.avos.avoscloud.SignUpCallback;
+import com.example.joe.talktalk.MainActivity;
 import com.example.joe.talktalk.R;
-import com.example.joe.talktalk.account.register.RegisterActivity;
 import com.example.joe.talktalk.base.BaseFragment;
 import com.example.joe.talktalk.common.Constants;
+import com.example.joe.talktalk.model.UserInfoModel;
 import com.example.joe.talktalk.ui.photocropper.BitmapUtil;
 import com.example.joe.talktalk.ui.photocropper.CropHandler;
 import com.example.joe.talktalk.ui.photocropper.CropHelper;
 import com.example.joe.talktalk.ui.photocropper.CropParams;
 import com.example.joe.talktalk.utils.ToastUtil;
 
-import java.security.Permission;
-import java.security.Permissions;
+import java.io.FileNotFoundException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,9 +56,10 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     private EditText mEtName;
     private EditText mEtSignature;
     private Spinner mSpinner;
-    //头像图片选择、路径
+    //头像图片选择、本地路径
     private CropParams cropParams;
     private String path;
+    private String imagePath;//上传图片后网络图片路径
 
     private static Register3Fragment instance;
 
@@ -75,13 +78,18 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
         return instance;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mContext = getActivity();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_register_3_layout, container, false);
         init(view);
         initSpinner();
-        mContext = getActivity();
         cropParams = new CropParams(mContext);
         return view;
     }
@@ -89,9 +97,9 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     @Override
     public void initView(View view) {
         click(view, R.id.ll_pick_user_icon);
-        click(view, R.id.fb_save);
+        click(view, R.id.btn_save);
         civUserIcon = $(view, R.id.civ_user_icon);
-        mEtName = $(view, R.id.et_nickname);
+        mEtName = $(view, R.id.et_user_nickname);
         mEtSignature = $(view, R.id.et_user_signature);
         mSpinner = $(view, R.id.s_user_sex);
     }
@@ -113,9 +121,59 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
             case R.id.ll_pick_user_icon://选择头像
                 getUserIcon();
                 break;
-            case R.id.fb_save://保存按钮
-
+            case R.id.btn_save://保存按钮
+                showLoadingDialog("注册中..");
+                registerUser();//去注册
                 break;
+        }
+    }
+
+    /**
+     * 注册用户
+     */
+    private void registerUser() {
+        String imageType = ".jpg";
+        if (path.contains(".png")) {
+            imageType = ".png";
+        }
+        try {
+            //上传头像
+            final AVFile file = AVFile.withAbsoluteLocalPath(phoneNumber + imageType, path);
+            file.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(AVException e) {
+                    Log.d(TAG, file.getUrl());
+                    imagePath = file.getUrl();
+
+                    UserInfoModel user = new UserInfoModel();// 新建 AVUser 对象实例
+                    user.setUsername(phoneNumber);
+                    user.setNickname(mEtName.getText().toString());
+                    user.setMobilePhoneNumber(phoneNumber);
+                    user.setPassword(password);
+                    user.setSignature(mEtSignature.getText().toString());
+                    user.setSex(mSpinner.getSelectedItemPosition());
+                    user.setHeader(imagePath);
+                    user.signUpInBackground(new SignUpCallback() {
+                        @Override
+                        public void done(AVException e) {
+                            if (e == null) {
+                                showShortToast("注册成功");
+                                // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
+                                MainActivity.launch(getActivity());
+                                getActivity().finish();
+                            } else if (e.getCode() == 202) {
+                                showShortToast("该用户名已存在");
+                            } else if (e.getCode() == 214) {
+                                showShortToast("该用户已存在，请登录");
+                            } else {
+                                Log.d(TAG, e.getCause().toString());
+                            }
+                        }
+                    });
+                }
+            });
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
@@ -135,7 +193,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, position + "");
-                int itemId = (int) parent.getItemAtPosition(position);
+                int itemId = (int) parent.getItemIdAtPosition(position);
                 Log.d(TAG, itemId + "");
                 mSpinner.setSelection(itemId);
             }
@@ -148,7 +206,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     }
 
     /**
-     * 获取用户头像
+     * 上传用户头像
      */
     private void getUserIcon() {
         cropParams.refreshUri();
@@ -229,7 +287,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     private void openAlbum() {
         cropParams.enable = true;
         cropParams.compress = true;
-        Intent intent = CropHelper.buildCameraIntent(cropParams);
+        Intent intent = CropHelper.buildGalleryIntent(cropParams);
         startActivityForResult(intent, CropHelper.REQUEST_PICK);
     }
 
@@ -247,7 +305,6 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     @Override
     public void onPhotoCropped(Uri uri) {
         Log.d(TAG, "onPhotoCropped");
-
     }
 
     @Override

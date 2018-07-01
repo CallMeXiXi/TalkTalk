@@ -80,13 +80,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
-        <com.cengalabs.flatui.views.FlatButton
-            android:id="@+id/fb_save"
+        <Button
+            android:id="@+id/btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="完成"
-            app:fl_theme="@array/my_button_theme"
-            app:fl_touchEffect="fl_ripple" />
+            android:background="?attr/colorPrimary"/>
     </LinearLayout>
 </LinearLayout>

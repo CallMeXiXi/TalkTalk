@@ -14,7 +14,7 @@
 
     <string name="loading">加载中..</string>
     <string name="register">注册</string>
-    <string name="phoneNumberError">手机号码输入错误</string>
+    <string name="phoneNumberError">手机号码不能为空</string>
     <string name="passwordError">请设置登录密码</string>
     <string name="passwordLengthGreat6">密码长度设置在6~16之间</string>
     <string name="verifyCodeError">验证码不能为空</string>
