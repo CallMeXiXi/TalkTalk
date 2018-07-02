@@ -21,7 +21,7 @@ public class AVImClientManager {
 
     public static AVImClientManager getInstance() {
         if (instance == null) {
-            synchronized (instance) {
+            synchronized (AVImClientManager.class) {
                 if (instance == null) {
                     instance = new AVImClientManager();
                 }

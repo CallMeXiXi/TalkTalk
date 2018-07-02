@@ -52,6 +52,14 @@ public class UserInfoModel extends AVUser {
         put("signature", signature);
     }
 
+    public String getEmail() {
+        return getString("email");
+    }
+
+    public void setEmail(String email) {
+        put("email", email);
+    }
+
     @Override
     public String toString() {
         return "UserInfoModel{" +
@@ -60,6 +68,7 @@ public class UserInfoModel extends AVUser {
                 ", header='" + getHeader() + '\'' +
                 ", nickname='" + getNickname() + '\'' +
                 ", sex='" + getSex() + '\'' +
+                ", email='" + getEmail() + '\'' +
                 ", signature='" + getSignature() + '\'' +
                 '}';
     }

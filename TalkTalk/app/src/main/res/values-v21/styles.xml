@@ -15,7 +15,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:color">@color/white</item>
         <!-- 主要是这个起作用,修改默认返回键的颜色-->
-        <!--<item name="colorControlNormal">@android:color/white</item>-->
+        <item name="colorControlNormal">@android:color/white</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

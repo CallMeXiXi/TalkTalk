@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,15 +47,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class Register3Fragment extends BaseFragment implements CropHandler {
 
     private static final String TAG = "Register3Fragment";
-    //页面2传来的手机号码及密码
+    //页面2传来的手机号码及密码、邮箱
     private String phoneNumber;
     private String password;
+    private String email;
     //上下文
     private Context mContext;
     //控件
     private CircleImageView civUserIcon;
     private EditText mEtName;
     private EditText mEtSignature;
+    private EditText mEtEamil;
     private Spinner mSpinner;
     //头像图片选择、本地路径
     private CropParams cropParams;
@@ -101,6 +104,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
         civUserIcon = $(view, R.id.civ_user_icon);
         mEtName = $(view, R.id.et_user_nickname);
         mEtSignature = $(view, R.id.et_user_signature);
+        mEtEamil = $(view, R.id.et_user_email);
         mSpinner = $(view, R.id.s_user_sex);
     }
 
@@ -132,6 +136,10 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
      * 注册用户
      */
     private void registerUser() {
+        email = mEtEamil.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            showShortToast("邮箱地址不能为空");
+        }
         String imageType = ".jpg";
         if (path.contains(".png")) {
             imageType = ".png";
@@ -150,6 +158,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
                     user.setNickname(mEtName.getText().toString());
                     user.setMobilePhoneNumber(phoneNumber);
                     user.setPassword(password);
+                    user.setEmail(email);
                     user.setSignature(mEtSignature.getText().toString());
                     user.setSex(mSpinner.getSelectedItemPosition());
                     user.setHeader(imagePath);

@@ -15,6 +15,7 @@ import com.avos.avoscloud.LogInCallback;
 import com.example.joe.talktalk.MainActivity;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.account.register.RegisterActivity;
+import com.example.joe.talktalk.account.resetPassword.ResetPasswordActivity;
 import com.example.joe.talktalk.base.BaseAppCompatActivity;
 import com.example.joe.talktalk.ui.LoadingDialog;
 import com.example.joe.talktalk.utils.ToastUtil;
@@ -78,6 +79,7 @@ public class LoginActivity extends BaseAppCompatActivity {
                 login();
                 break;
             case R.id.tv_forget_password://忘记密码
+                ResetPasswordActivity.launch(this);
                 break;
         }
     }

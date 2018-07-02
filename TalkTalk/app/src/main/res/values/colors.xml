@@ -16,6 +16,7 @@
     <color name="gray">#999999</color>
     <color name="gray_e1e1e1">#e1e1e1</color>
     <color name="transparent_33000000">#33000000</color>
+    <color name="main_gray">#bfbfbf</color>
 
     <integer-array name="my_button_theme">
         <item>@color/colorPrimaryDark</item>

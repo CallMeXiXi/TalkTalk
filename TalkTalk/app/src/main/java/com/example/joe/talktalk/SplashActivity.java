@@ -61,7 +61,7 @@ public class SplashActivity extends AppCompatActivity {
                                             ToastUtil.showLongToast(SplashActivity.this, e.getMessage());
                                         } else {
                                             MainActivity.launch(SplashActivity.this);
-                                            finish();
+                                            SplashActivity.this.finish();
                                         }
                                     }
                                 });

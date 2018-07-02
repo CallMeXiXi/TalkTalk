@@ -1,5 +1,6 @@
 package com.example.joe.talktalk.account.resetPassword;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,7 @@ public class ResetPasswordActivity extends BaseAppCompatActivity {
         changeFragment(ResetPassword1Fragment.getInstance());
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void initTitle() {
         mToolbar.setTitle("重置密码");

@@ -1,5 +1,6 @@
 package com.example.joe.talktalk.account.register;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,6 +49,7 @@ public class RegisterActivity extends BaseAppCompatActivity {
         changeFragment(Register1Fragment.getInstance());
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void initTitle() {
         setSupportActionBar(mToolbar);
