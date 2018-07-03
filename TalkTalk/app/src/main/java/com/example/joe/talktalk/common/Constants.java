@@ -17,4 +17,8 @@ public class Constants {
     //请求权限码
     public static final int PERMISSION_CAMERA = 100;
     public static final int PERMISSION_ALBUM = 101;
+
+
+    public static final String HANDLER_MESSAGE = "com.funchat.handler_message";
+    public static final String UN_READ_MESSAGE_COUNT = "com.funchat.un_read_message_count";
 }
