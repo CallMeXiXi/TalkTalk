@@ -18,6 +18,10 @@ public class Constants {
     public static final int PERMISSION_CAMERA = 100;
     public static final int PERMISSION_ALBUM = 101;
 
+    public static final String NICK_NAME = "nick_name";
+    public static final String IMAGE_URI = "image_uri";
+    public static final String CONVERSATION_ID = "conversation_id";
+
 
     public static final String HANDLER_MESSAGE = "com.funchat.handler_message";
     public static final String UN_READ_MESSAGE_COUNT = "com.funchat.un_read_message_count";

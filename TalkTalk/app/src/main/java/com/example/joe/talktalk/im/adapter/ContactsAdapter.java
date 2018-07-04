@@ -8,7 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.example.joe.talktalk.R;
+import com.example.joe.talktalk.im.AVImClientManager;
+import com.example.joe.talktalk.im.activity.ContactsInfoActivity;
 import com.example.joe.talktalk.model.ContactsModel;
 
 import java.util.List;
@@ -38,7 +44,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
 
     @Override
     public void onBindViewHolder(@NonNull ContactsViewHolder holder, int position) {
-        ContactsModel model = lists.get(position);
+        final ContactsModel model = lists.get(position);
         if (model != null) {
             holder.tvName.setText(model.getName());
             holder.civImage.setImageResource(R.mipmap.ic_launcher);
@@ -53,7 +59,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.Contac
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    ContactsInfoActivity.launch(context, model.getName(), model.getImageUri());
                 }
             });
         }

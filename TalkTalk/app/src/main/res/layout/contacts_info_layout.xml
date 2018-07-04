@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ToolbarTheme" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="@dimen/main_margin_top_16"
+        android:background="#fff"
+        android:gravity="center|left"
+        android:orientation="horizontal"
+        android:padding="@dimen/main_margin_top_16">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/main_margin_left_10"
+            android:text="Name"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_setting"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="@dimen/main_margin_top_16"
+        android:background="#fff"
+        android:gravity="center|left"
+        android:padding="@dimen/main_margin_top_16">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/main_margin_left_10"
+            android:text="设置好友备注"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_chat"
+        style="@style/btn_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/main_margin_left_16"
+        android:layout_marginRight="@dimen/main_margin_right_16"
+        android:layout_marginTop="@dimen/main_margin_top_16"
+        android:text="开始聊天" />
+</LinearLayout>

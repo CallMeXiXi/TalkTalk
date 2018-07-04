@@ -3,6 +3,7 @@ package com.example.joe.talktalk.im.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,8 +73,9 @@ public class ContactsFragment extends BaseFragment {
     @Override
     public void initView(View view) {
         rvContacts = $(view, R.id.rv_contacts);
+        //添加Android自带的分割线
+        rvContacts.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL));
         rvContacts.setAdapter(mAdapter);
-
     }
 
     @Override

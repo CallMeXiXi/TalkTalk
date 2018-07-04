@@ -66,13 +66,13 @@
 
     <Button
         android:id="@+id/btn_login"
+        style="@style/btn_style"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/til_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:text="登录"
-        android:background="?attr/colorPrimary"/>
+        android:text="登录" />
 
     <TextView
         android:id="@+id/tv_forget_password"

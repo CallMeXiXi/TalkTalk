@@ -97,10 +97,9 @@
 
         <Button
             android:id="@+id/btn_save"
+            style="@style/btn_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="完成"
-            android:background="?attr/colorPrimary"/>
+            android:text="完成" />
     </LinearLayout>
 </LinearLayout>
