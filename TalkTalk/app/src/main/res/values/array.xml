@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sex_array">
+        <item>保密</item>
+        <item>男</item>
+        <item>女</item>
+    </string-array>
+
+    <string-array name="select_user_icon">
+        <item>拍照</item>
+        <item>相册选择</item>
+    </string-array>
+
+    <string-array name="waveSideBarLetters">
+        <item>\u0023</item>
+        <item>\u2606</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+
+    <string-array name="name_lists">
+        <item>Candy</item>
+        <item>陈奕迅</item>
+        <item>Davy</item>
+        <item>大卫</item>
+        <item>Empty</item>
+        <item>Eason</item>
+        <item>Fuck</item>
+        <item>Gigi</item>
+        <item>Hello</item>
+        <item>么么哒</item>
+        <item>Ill</item>
+        <item>Joe</item>
+        <item>成龙</item>
+        <item>King</item>
+        <item>Lie</item>
+        <item>Money</item>
+        <item>大佬</item>
+        <item>No</item>
+        <item>Oli</item>
+        <item>奥利奥</item>
+        <item>Police</item>
+    </string-array>
+</resources>

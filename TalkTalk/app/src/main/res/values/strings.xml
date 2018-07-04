@@ -1,16 +1,5 @@
 <resources>
     <string name="app_name">TalkTalk</string>
-    <string-array name="sex_array">
-        <item>保密</item>
-        <item>男</item>
-        <item>女</item>
-    </string-array>
-
-    <string-array name="select_user_icon">
-        <item>拍照</item>
-        <item>相册选择</item>
-    </string-array>
-
 
     <string name="loading">加载中..</string>
     <string name="register">注册</string>
@@ -25,4 +14,7 @@
     <string name="main_contacts">通讯录</string>
     <string name="main_find">发现</string>
     <string name="main_me">我</string>
+
+
+
 </resources>

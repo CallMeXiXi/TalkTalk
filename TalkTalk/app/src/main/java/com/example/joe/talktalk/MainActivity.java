@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.example.joe.talktalk.im.fragment.TalkFragment;
 public class MainActivity extends BaseAppCompatActivity {
 
     //控件
+    private Toolbar mToolbar;
     private TextView mTvTalk;
     private TextView mTvContacts;
     private TextView mTvFind;
@@ -52,6 +55,7 @@ public class MainActivity extends BaseAppCompatActivity {
         click(R.id.ll_main_contacts);
         click(R.id.ll_main_find);
         click(R.id.ll_main_me);
+        mToolbar = $(R.id.toolbar);
         mTvTalk = $(R.id.tv_main_talk);
         mTvContacts = $(R.id.tv_main_contacts);
         mTvFind = $(R.id.tv_main_find);
@@ -65,12 +69,19 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     public void initTitle() {
-
+        mToolbar.setTitle("TT");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
     public void initListener() {
-
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.this.finish();
+            }
+        });
     }
 
     @Override

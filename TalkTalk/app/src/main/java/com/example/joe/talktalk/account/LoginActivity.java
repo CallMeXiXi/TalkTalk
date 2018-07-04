@@ -60,7 +60,6 @@ public class LoginActivity extends BaseAppCompatActivity {
 
     @Override
     public void initTitle() {
-
     }
 
     @Override
