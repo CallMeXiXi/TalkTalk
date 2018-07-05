@@ -7,6 +7,7 @@ package com.example.joe.talktalk.model;
 public class ContactsModel {
 
     private String name;
+    private String clientId;
     private String imageUri;
     private String sortLetters;
 
@@ -34,10 +35,19 @@ public class ContactsModel {
         this.sortLetters = sortLetters;
     }
 
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
     @Override
     public String toString() {
         return "ContactsModel{" +
                 "name='" + name + '\'' +
+                "clientId='" + clientId + '\'' +
                 ", imageUri='" + imageUri + '\'' +
                 ", sortLetters='" + sortLetters + '\'' +
                 '}';

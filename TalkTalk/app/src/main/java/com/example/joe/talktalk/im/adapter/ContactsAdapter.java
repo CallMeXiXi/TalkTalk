@@ -8,12 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.example.joe.talktalk.R;
-import com.example.joe.talktalk.im.AVImClientManager;
 import com.example.joe.talktalk.im.activity.ContactsInfoActivity;
 import com.example.joe.talktalk.model.ContactsModel;
 
@@ -25,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 2018/7/4 0004.
  */
 
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<chatAdapter.ContactsViewHolder> {
 
     private Context context;
     private List<ContactsModel> lists;

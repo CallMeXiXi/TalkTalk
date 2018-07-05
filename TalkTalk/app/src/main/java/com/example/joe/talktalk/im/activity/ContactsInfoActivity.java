@@ -100,7 +100,8 @@ public class ContactsInfoActivity extends BaseAppCompatActivity {
                     @Override
                     public void done(AVIMConversation conversation, AVIMException e) {
                         if (e == null) {
-                            ToastUtil.showShortToast(ContactsInfoActivity.this, "sghjskdg");
+                            //跳转到聊天界面
+                            ChatActivity.launch(ContactsInfoActivity.this, name, conversation.getConversationId());
                         }
                     }
                 });

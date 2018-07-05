@@ -21,6 +21,7 @@ public class Constants {
     public static final String NICK_NAME = "nick_name";
     public static final String IMAGE_URI = "image_uri";
     public static final String CONVERSATION_ID = "conversation_id";
+    public static final String AVIMCONVERSATION = "avim_conversation";
 
 
     public static final String HANDLER_MESSAGE = "com.funchat.handler_message";

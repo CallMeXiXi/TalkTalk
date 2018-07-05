@@ -68,10 +68,13 @@
         <activity
             android:name=".account.resetPassword.ResetPasswordActivity"
             android:screenOrientation="portrait" />
-
         <!--好友信息界面-->
         <activity
             android:name=".im.activity.ContactsInfoActivity"
+            android:screenOrientation="portrait" />
+        <!--聊天界面-->
+        <activity
+            android:name=".im.activity.ChatActivity"
             android:screenOrientation="portrait" />
     </application>
 </manifest>
