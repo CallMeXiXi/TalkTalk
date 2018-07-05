@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Administrator on 2018/7/4 0004.
  */
 
-public class ContactsAdapter extends RecyclerView.Adapter<chatAdapter.ContactsViewHolder> {
+public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ContactsViewHolder> {
 
     private Context context;
     private List<ContactsModel> lists;

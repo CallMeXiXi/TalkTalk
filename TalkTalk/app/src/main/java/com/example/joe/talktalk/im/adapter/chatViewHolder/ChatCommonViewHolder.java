@@ -1,4 +1,4 @@
-package com.example.joe.talktalk.im.adapter.chatAdapter;
+package com.example.joe.talktalk.im.adapter.chatViewHolder;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

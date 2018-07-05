@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.base.BaseFragment;
 import com.example.joe.talktalk.common.Constants;
 import com.example.joe.talktalk.im.activity.ChatActivity;
+import com.example.joe.talktalk.im.adapter.ChatAdapter;
 import com.example.joe.talktalk.utils.ToastUtil;
 
 import java.io.Serializable;
@@ -29,8 +34,8 @@ import java.io.Serializable;
 
 public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, TextWatcher {
 
-    //聊天信息
-    private String msg;
+    private static final String TAG = "ChatFragment";
+
     private AVIMConversation conversation;
     //上下文
     private Context mContext;
@@ -41,6 +46,8 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private EditText etMessage;
     private ImageView ivSpeech;
     private ImageView ivSend;
+    //适配器
+    private ChatAdapter mAdapter;
 
     private static ChatFragment instance;
 
@@ -100,8 +107,33 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 ToastUtil.showShortToast(mContext, "还没做到语音拉");
                 break;
             case R.id.iv_send://发送
-
+                sendMessage();
                 break;
+        }
+    }
+
+    /**
+     * 发送消息
+     */
+    private void sendMessage() {
+        // 发送消息
+        if (conversation != null) {
+            AVIMTextMessage msg = new AVIMTextMessage();
+            msg.setText(etMessage.getText().toString());
+            mAdapter = new ChatAdapter(mContext, msg);
+            rvChat.setAdapter(mAdapter);
+            etMessage.setText("");
+            mAdapter.notifyDataSetChanged();
+            conversation.sendMessage(msg, new AVIMConversationCallback() {
+
+                @Override
+                public void done(AVIMException e) {
+                    if (e == null) {
+                        Log.d(TAG, "发送成功！");
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
         }
     }
 
@@ -110,7 +142,7 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
      */
     @Override
     public void onRefresh() {
-
+        srlRefresh.setRefreshing(false);
     }
 
     /**
@@ -130,8 +162,11 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         if (TextUtils.isEmpty(charSequence)) {
             ivSend.setImageResource(R.mipmap.un_send);
-        } else {
+            ivSend.setEnabled(false);
+        } else if (charSequence.length() > 0 && charSequence.length() < 200) {
+            etMessage.setSelection(charSequence.length());
             ivSend.setImageResource(R.mipmap.send);
+            ivSend.setEnabled(true);
         }
     }
 
