@@ -50,10 +50,23 @@ public class ChatRightViewHolder extends ChatCommonViewHolder<AVIMMessage> {
 
         String content = "暂不支持此类型";
         if (avimMessage instanceof AVIMTextMessage) {
-            content = avimMessage.getContent();
+            content = ((AVIMTextMessage) avimMessage).getText();
         }
         tvTime.setText(date);
         tvContent.setText(content);
+
+        //显示，隐藏是否已经发送成功的按钮
+        if (avimMessage.getMessageStatus() == AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed) {
+            pbProgress.setVisibility(View.GONE);
+            flContainer.setVisibility(View.VISIBLE);
+            ivError.setVisibility(View.VISIBLE);
+        } else if (avimMessage.getMessageStatus() == AVIMMessage.AVIMMessageStatus.AVIMMessageStatusSending) {
+            pbProgress.setVisibility(View.VISIBLE);
+            flContainer.setVisibility(View.VISIBLE);
+            ivError.setVisibility(View.GONE);
+        } else if (avimMessage.getMessageStatus() == AVIMMessage.AVIMMessageStatus.AVIMMessageStatusSent) {
+            flContainer.setVisibility(View.GONE);
+        }
     }
 
     /**

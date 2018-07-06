@@ -1,9 +1,13 @@
 package com.example.joe.talktalk.im.charFragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -17,7 +21,9 @@ import android.widget.ImageView;
 
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.base.BaseFragment;
@@ -26,7 +32,7 @@ import com.example.joe.talktalk.im.activity.ChatActivity;
 import com.example.joe.talktalk.im.adapter.ChatAdapter;
 import com.example.joe.talktalk.utils.ToastUtil;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/7/5 0005.
@@ -46,8 +52,11 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private EditText etMessage;
     private ImageView ivSpeech;
     private ImageView ivSend;
+    private LinearLayoutManager manager;
     //适配器
     private ChatAdapter mAdapter;
+    //广播
+    private ReceiveMessageBroadCastReceive receive;
 
     private static ChatFragment instance;
 
@@ -67,12 +76,17 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         super.onCreate(savedInstanceState);
         mContext = getActivity();
         mActivity = (ChatActivity) getActivity();
+        //注册广播
+        receive = new ReceiveMessageBroadCastReceive();
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.HANDLER_MESSAGE);
+        mContext.registerReceiver(receive, intentFilter);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.char_fragment_layout, container, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fragment_char_layout, container, false);
         init(view);
         return view;
     }
@@ -86,6 +100,10 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         ivSend = $(view, R.id.iv_send);
         click(view, R.id.iv_speech);
         click(view, R.id.iv_send);
+
+        manager = new LinearLayoutManager(mContext);
+        rvChat.setLayoutManager(manager);
+        mAdapter = new ChatAdapter(mContext);
     }
 
     @Override
@@ -120,8 +138,7 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         if (conversation != null) {
             AVIMTextMessage msg = new AVIMTextMessage();
             msg.setText(etMessage.getText().toString());
-            mAdapter = new ChatAdapter(mContext, msg);
-            rvChat.setAdapter(mAdapter);
+            mAdapter.addMessage(msg);
             etMessage.setText("");
             mAdapter.notifyDataSetChanged();
             conversation.sendMessage(msg, new AVIMConversationCallback() {
@@ -131,6 +148,7 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     if (e == null) {
                         Log.d(TAG, "发送成功！");
                         mAdapter.notifyDataSetChanged();
+                        scrollButton();
                     }
                 }
             });
@@ -150,8 +168,31 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
      */
     public void setAVImConversation(AVIMConversation conversation) {
         this.conversation = conversation;
+        freshMessage();
     }
 
+    /**
+     * 获取历史数据
+     */
+    private void freshMessage() {
+        if (null != conversation) {
+            conversation.queryMessages(20, new AVIMMessagesQueryCallback() {
+                @Override
+                public void done(List<AVIMMessage> list, AVIMException e) {
+                    mAdapter.setMessage(list);
+                    rvChat.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
+                    scrollButton();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mContext.unregisterReceiver(receive);
+    }
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -173,5 +214,33 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+
+    /**
+     * 滑动到最新一条
+     */
+    private void scrollButton() {
+        manager.scrollToPositionWithOffset(mAdapter.getItemCount() - 1, 0);
+    }
+
+    /**
+     * 接收信息的广播
+     * Created by Administrator on 2018/7/6 0006.
+     */
+    public class ReceiveMessageBroadCastReceive extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(Constants.HANDLER_MESSAGE)) {
+                AVIMMessage message = (AVIMMessage) intent.getSerializableExtra("message");
+                String conversationId = intent.getStringExtra("conversation_id");
+                if (conversation != null
+                        && conversation.getConversationId().equals(conversationId)) {
+                    mAdapter.addMessage(message);
+                    mAdapter.notifyDataSetChanged();
+                    scrollButton();
+                }
+            }
+        }
     }
 }

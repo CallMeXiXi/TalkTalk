@@ -50,7 +50,7 @@ public class ChatLeftViewHolder extends ChatCommonViewHolder<AVIMMessage> {
 
         String content = "暂不支持此类型";
         if (avimMessage instanceof AVIMTextMessage) {
-            content = avimMessage.getContent();
+            content = ((AVIMTextMessage) avimMessage).getText();
         }
         tvTime.setText(date);
         tvContent.setText(content);

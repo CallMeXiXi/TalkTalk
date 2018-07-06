@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMConversationsQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
@@ -47,7 +46,7 @@ public class ChatActivity extends BaseAppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.chat_activity_layout);
+        setContentView(R.layout.activity_chat_layout);
     }
 
     @Override

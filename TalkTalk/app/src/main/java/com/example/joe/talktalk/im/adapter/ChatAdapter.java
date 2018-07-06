@@ -28,8 +28,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatCommonViewHolder<AVIMM
     private Context context;
     private List<AVIMMessage> lists = new ArrayList<>();
 
-    public ChatAdapter(Context context, AVIMMessage message) {
+    public ChatAdapter(Context context) {
         this.context = context;
+    }
+
+    public void addMessage(AVIMMessage message) {
         this.lists.addAll(Arrays.asList(message));
     }
 
@@ -41,7 +44,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatCommonViewHolder<AVIMM
     @Override
     public int getItemViewType(int position) {
         AVIMMessage message = lists.get(position);
-        if (message.getFrom().equals(AVImClientManager.getInstance().getAvimClient())) {
+        if (message.getFrom().equals(AVImClientManager.getInstance().getClientId())) {
             return ITEM_RIGHT;
         } else {
             return ITEM_LEFT;

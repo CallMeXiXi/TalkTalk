@@ -102,6 +102,7 @@ public class ContactsInfoActivity extends BaseAppCompatActivity {
                         if (e == null) {
                             //跳转到聊天界面
                             ChatActivity.launch(ContactsInfoActivity.this, name, conversation.getConversationId());
+                            finish();
                         }
                     }
                 });
