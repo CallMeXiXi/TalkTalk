@@ -9,7 +9,8 @@
     <color name="green_dark">#0b8043</color>
     <color name="blue">#03a9f4</color>
     <color name="blue_dark">#0288d1</color>
-    <color name="red">#db4437</color>
+    <color name="red">#ff0000</color>
+    <color name="yellow">#ffff00</color>
     <color name="red_dark">#c53929</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

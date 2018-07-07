@@ -94,6 +94,7 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void initView(View view) {
         srlRefresh = $(view, R.id.srl_chat);
+        srlRefresh.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
         rvChat = $(view, R.id.rv_chat);
         etMessage = $(view, R.id.et_message);
         ivSpeech = $(view, R.id.iv_speech);
@@ -160,7 +161,34 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
      */
     @Override
     public void onRefresh() {
-        srlRefresh.setRefreshing(false);
+        conversation.queryMessages(new AVIMMessagesQueryCallback() {
+            @Override
+            public void done(List<AVIMMessage> messages, AVIMException e) {
+                if (e == null) {
+                    if (messages != null && !messages.isEmpty()) {
+                        Log.d(TAG, "获取到 " + messages.size() + " 条messages ");
+
+                        //返回的消息一定是时间增序排列，也就是最早的消息一定是第一个
+                        AVIMMessage oldestMessage = messages.get(0);
+
+                        conversation.queryMessages(oldestMessage.getMessageId(), oldestMessage.getTimestamp(), 20,
+                                new AVIMMessagesQueryCallback() {
+                                    @Override
+                                    public void done(List<AVIMMessage> msgs, AVIMException e) {
+                                        if (e == null) {
+                                            //查询成功返回
+                                            Log.d(TAG, "got " + msgs.size() + " messages ");
+
+                                            mAdapter.addMessagesList(msgs);
+                                            mAdapter.notifyDataSetChanged();
+                                            srlRefresh.setRefreshing(false);
+                                        }
+                                    }
+                                });
+                    }
+                }
+            }
+        });
     }
 
     /**

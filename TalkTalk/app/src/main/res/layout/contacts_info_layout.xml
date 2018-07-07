@@ -45,11 +45,11 @@
         android:layout_marginTop="@dimen/main_margin_top_16"
         android:background="#fff"
         android:gravity="center|left"
-        android:padding="@dimen/main_margin_top_16">
+        android:padding="@dimen/main_margin_top_10">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/main_margin_left_10"
             android:text="设置好友备注"
             android:textSize="16sp" />

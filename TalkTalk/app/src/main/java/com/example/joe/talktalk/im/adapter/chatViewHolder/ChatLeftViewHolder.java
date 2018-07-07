@@ -45,7 +45,7 @@ public class ChatLeftViewHolder extends ChatCommonViewHolder<AVIMMessage> {
 
     @Override
     public void initData(AVIMMessage avimMessage) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = sdf.format(avimMessage.getTimestamp());
 
         String content = "暂不支持此类型";

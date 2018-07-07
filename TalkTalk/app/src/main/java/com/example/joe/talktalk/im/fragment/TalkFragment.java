@@ -59,6 +59,9 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         super.onCreate(savedInstanceState);
         mContext = getContext();
         mActivity = (MainActivity) getContext();
+
+        convsList = new ArrayList<>();
+        mAdapter = new TalkAdapter(mContext, convsList);
     }
 
     @Nullable
@@ -72,13 +75,11 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void initView(View view) {
         srlTalk = $(view, R.id.srl_chat_collection);
+        srlTalk.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
         rvTalk = $(view, R.id.rv_chat_collection);
         //添加Android自带的分割线
         rvTalk.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
-
-        mAdapter = new TalkAdapter(mContext, convsList);
         rvTalk.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -88,10 +89,14 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void done(List<AVIMConversation> convs, AVIMException e) {
                 if (e == null) {
-                    //convs就是获取到的conversation列表
-                    //注意：按每个对话的最后更新日期（收到最后一条消息的时间）倒序排列
-                    convsList = new ArrayList<>();
-                    convsList = convs;
+                    if (convs != null) {
+                        //convs就是获取到的conversation列表
+                        //注意：按每个对话的最后更新日期（收到最后一条消息的时间）倒序排列
+                        convsList.clear();
+                        convsList.addAll(convs);
+                        mAdapter.notifyDataSetChanged();
+                        srlTalk.setRefreshing(false);
+                    }
                 }
             }
         });
@@ -114,6 +119,6 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
      */
     @Override
     public void onRefresh() {
-        srlTalk.setRefreshing(false);
+        initData();
     }
 }

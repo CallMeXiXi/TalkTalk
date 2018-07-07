@@ -3,6 +3,7 @@ package com.example.joe.talktalk.im.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,11 +44,16 @@ public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder
         final AVIMConversation model = convs.get(position);
         if (model != null) {
             String content = "";
-            holder.tvName.setText(model.getName());
             if (model.getLastMessage() instanceof AVIMTextMessage) {
                 content = ((AVIMTextMessage) model.getLastMessage()).getText();
             }
-            holder.tvContent.setText(content);
+
+            if (!TextUtils.isEmpty(content)) {
+                holder.tvContent.setText(content);
+            } else {
+                holder.tvContent.setVisibility(View.GONE);
+            }
+            holder.tvName.setText(model.getName());
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

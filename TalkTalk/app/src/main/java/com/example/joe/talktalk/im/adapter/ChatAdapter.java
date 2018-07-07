@@ -32,8 +32,20 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatCommonViewHolder<AVIMM
         this.context = context;
     }
 
+    /**
+     * 发送就新增一条
+     * @param message
+     */
     public void addMessage(AVIMMessage message) {
         this.lists.addAll(Arrays.asList(message));
+    }
+
+    /**
+     * 上拉刷新
+     * @param messages
+     */
+    public void addMessagesList(List<AVIMMessage> messages) {
+        this.lists.addAll(messages);
     }
 
     public void setMessage(List<AVIMMessage> list) {
