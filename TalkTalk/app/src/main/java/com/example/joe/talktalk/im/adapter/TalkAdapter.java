@@ -14,6 +14,7 @@ import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.im.activity.ChatActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -24,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder> {
 
+    private int unreadCount;
     private Context context;
     private List<AVIMConversation> convs;
 
@@ -48,12 +50,25 @@ public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder
                 content = ((AVIMTextMessage) model.getLastMessage()).getText();
             }
 
+            //内容
             if (!TextUtils.isEmpty(content)) {
                 holder.tvContent.setText(content);
             } else {
                 holder.tvContent.setVisibility(View.GONE);
             }
+            //姓名
             holder.tvName.setText(model.getName());
+            //时间
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+            String time = sdf.format(model.getLastMessage().getTimestamp());
+            holder.tvTime.setText(time);
+            //未读数
+            if (unreadCount == 0) {
+                holder.tvUnread.setVisibility(View.GONE);
+            } else {
+                holder.tvUnread.setVisibility(View.VISIBLE);
+                holder.tvUnread.setText(unreadCount);
+            }
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -69,18 +84,30 @@ public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder
         return convs.size();
     }
 
+    /**
+     * 设置未读数
+     *
+     * @param unreadCount
+     */
+    public void setUnreadCount(int unreadCount) {
+        this.unreadCount = unreadCount;
+    }
 
     public class TalkViewHolder extends RecyclerView.ViewHolder {
 
         CircleImageView civHeader;
         TextView tvName;
         TextView tvContent;
+        TextView tvTime;
+        TextView tvUnread;
 
         public TalkViewHolder(View itemView) {
             super(itemView);
             civHeader = itemView.findViewById(R.id.civ_header);
             tvName = itemView.findViewById(R.id.tv_name);
             tvContent = itemView.findViewById(R.id.tv_content);
+            tvTime = itemView.findViewById(R.id.tv_time);
+            tvUnread = itemView.findViewById(R.id.tv_unread);
         }
     }
 }

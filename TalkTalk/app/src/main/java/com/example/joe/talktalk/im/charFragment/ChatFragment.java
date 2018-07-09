@@ -126,7 +126,9 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 ToastUtil.showShortToast(mContext, "还没做到语音拉");
                 break;
             case R.id.iv_send://发送
-                sendMessage();
+                if (ivSend.isEnabled()) {
+                    sendMessage();
+                }
                 break;
         }
     }

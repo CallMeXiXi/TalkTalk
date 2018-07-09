@@ -8,6 +8,7 @@ import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.example.joe.talktalk.common.Constants;
+import com.example.joe.talktalk.im.CustomConversationEventHandler;
 import com.example.joe.talktalk.im.CustomMessageHandler;
 import com.mob.MobSDK;
 
@@ -32,6 +33,8 @@ public class TTApplication extends Application {
         AVIMMessageManager.registerMessageHandler(AVIMTypedMessage.class, new CustomMessageHandler(this));
         //开启未读消息
         AVIMClient.setUnreadNotificationEnabled(true);
+        //注册未读数量
+        AVIMMessageManager.setConversationEventHandler(new CustomConversationEventHandler(this));
 
         // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
         // 在应用发布之前，请关闭调试日志，以免暴露敏感数据。

@@ -1,12 +1,17 @@
 package com.example.joe.talktalk.im;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationEventHandler;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.callback.AVIMMessagesQueryCallback;
+import com.example.joe.talktalk.common.Constants;
 
 import java.util.List;
 
@@ -29,8 +34,24 @@ public class CustomConversationEventHandler extends AVIMConversationEventHandler
      * @param conversation
      */
     @Override
-    public void onUnreadMessagesCountUpdated(AVIMClient client, AVIMConversation conversation) {
-        super.onUnreadMessagesCountUpdated(client, conversation);
+    public void onUnreadMessagesCountUpdated(AVIMClient client, final AVIMConversation conversation) {
+        if (conversation != null) {
+            conversation.queryMessages(new AVIMMessagesQueryCallback() {
+                @Override
+                public void done(List<AVIMMessage> list, AVIMException e) {
+                    if (list != null) {
+                        Intent intent = new Intent();
+                        intent.setAction(Constants.UN_READ_MESSAGE_COUNT);
+                        intent.putExtra("conversationId", conversation.getConversationId());
+                        intent.putExtra("lastMessage", list.get(list.size() - 1));
+                        intent.putExtra("unreadMessageCount", list.size());
+                        context.sendBroadcast(intent);
+                    }
+                }
+            });
+        } else {
+            super.onUnreadMessagesCountUpdated(client, conversation);
+        }
     }
 
 

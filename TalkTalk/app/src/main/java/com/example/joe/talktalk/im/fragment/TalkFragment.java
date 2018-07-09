@@ -1,6 +1,9 @@
 package com.example.joe.talktalk.im.fragment;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,10 +16,12 @@ import android.view.ViewGroup;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationsQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.example.joe.talktalk.MainActivity;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.base.BaseFragment;
+import com.example.joe.talktalk.common.Constants;
 import com.example.joe.talktalk.im.AVImClientManager;
 import com.example.joe.talktalk.im.adapter.TalkAdapter;
 
@@ -27,10 +32,9 @@ import java.util.List;
  * Created by Administrator on 2018/7/2 0002.
  */
 
-public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class TalkFragment extends BaseFragment {
 
     //控件
-    private SwipeRefreshLayout srlTalk;
     private RecyclerView rvTalk;
     //适配器
     private TalkAdapter mAdapter;
@@ -60,8 +64,9 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mContext = getContext();
         mActivity = (MainActivity) getContext();
 
-        convsList = new ArrayList<>();
-        mAdapter = new TalkAdapter(mContext, convsList);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Constants.UN_READ_MESSAGE_COUNT);
+        mContext.registerReceiver(unReadReceiver, intentFilter);
     }
 
     @Nullable
@@ -74,8 +79,6 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void initView(View view) {
-        srlTalk = $(view, R.id.srl_chat_collection);
-        srlTalk.setColorSchemeResources(R.color.red, R.color.yellow, R.color.blue);
         rvTalk = $(view, R.id.rv_chat_collection);
         //添加Android自带的分割线
         rvTalk.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL));
@@ -84,7 +87,11 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void initData() {
+        convsList = new ArrayList<>();
+        mAdapter = new TalkAdapter(mContext, convsList);
+
         AVIMConversationsQuery query = AVImClientManager.getInstance().getAvimClient().getConversationsQuery();
+        query.whereEqualTo("tr", true);
         query.findInBackground(new AVIMConversationQueryCallback() {
             @Override
             public void done(List<AVIMConversation> convs, AVIMException e) {
@@ -95,7 +102,6 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                         convsList.clear();
                         convsList.addAll(convs);
                         mAdapter.notifyDataSetChanged();
-                        srlTalk.setRefreshing(false);
                     }
                 }
             }
@@ -104,9 +110,6 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void initListener() {
-        if (!srlTalk.isRefreshing()) {
-            srlTalk.setOnRefreshListener(this);
-        }
     }
 
     @Override
@@ -114,11 +117,27 @@ public class TalkFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     }
 
-    /**
-     * 下拉刷新
-     */
     @Override
-    public void onRefresh() {
-        initData();
+    public void onDestroy() {
+        super.onDestroy();
+        mContext.unregisterReceiver(unReadReceiver);
     }
+
+    /**
+     * 获取未读数量的广播
+     */
+    private BroadcastReceiver unReadReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction() == Constants.UN_READ_MESSAGE_COUNT) {
+                String conversationId = intent.getStringExtra("conversationId");
+                AVIMMessage message = (AVIMMessage) intent.getSerializableExtra("lastMessage");
+                int unReadCount = intent.getIntExtra("unreadMessageCount", -1);
+                if (conversationId != null) {
+                    mAdapter.setUnreadCount(unReadCount);
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+    };
 }
