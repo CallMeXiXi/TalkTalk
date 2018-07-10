@@ -1,6 +1,7 @@
 package com.example.joe.talktalk.im.adapter.chatViewHolder;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -8,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMMessage;
 import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.bumptech.glide.Glide;
 import com.example.joe.talktalk.R;
+import com.example.joe.talktalk.model.UserInfoModel;
 
 import java.text.SimpleDateFormat;
 
@@ -22,6 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatRightViewHolder extends ChatCommonViewHolder<AVIMMessage> {
 
+    private Context context;
     private TextView tvTime;
     private ProgressBar pbProgress;
     private FrameLayout flContainer;
@@ -31,6 +36,7 @@ public class ChatRightViewHolder extends ChatCommonViewHolder<AVIMMessage> {
 
     public ChatRightViewHolder(Context context, ViewGroup parent) {
         super(context, parent, R.layout.item_chat_right_layout);
+        this.context = context;
     }
 
     @Override
@@ -54,6 +60,9 @@ public class ChatRightViewHolder extends ChatCommonViewHolder<AVIMMessage> {
         }
         tvTime.setText(date);
         tvContent.setText(content);
+        String header = AVUser.getCurrentUser(UserInfoModel.class).getHeader();
+        Glide.with(context).load(header).into(civHeader);
+//        civHeader.setImageURI(Uri.parse(header));
 
         //显示，隐藏是否已经发送成功的按钮
         if (avimMessage.getMessageStatus() == AVIMMessage.AVIMMessageStatus.AVIMMessageStatusFailed) {

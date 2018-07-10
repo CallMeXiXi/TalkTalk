@@ -17,4 +17,9 @@
     <string name="send">发送</string>
 
 
+    <string name="edit_user_image">更换头像</string>
+    <string name="edit_user_nickname">昵称</string>
+    <string name="edit_user_sex">性别</string>
+    <string name="edit_user_signature">个性签名</string>
+
 </resources>

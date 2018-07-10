@@ -62,7 +62,7 @@
                 android:textColor="@android:color/white" />
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_header"
+                android:id="@+id/civ_header"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@mipmap/ic_launcher"
