@@ -22,4 +22,11 @@
     <string name="edit_user_sex">性别</string>
     <string name="edit_user_signature">个性签名</string>
 
+    <string name="verify_phone">验证手机</string>
+    <string name="verify_email">验证邮箱</string>
+    <string name="verify_password">修改密码</string>
+    <string name="verify_about_us">关于我们</string>
+    <string name="logout">退出登录</string>
+    <string name="personal_info">个人信息</string>
+    <string name="setting">设置</string>
 </resources>

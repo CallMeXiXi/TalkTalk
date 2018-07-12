@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.base.BaseFragment;
 import com.example.joe.talktalk.im.AVImClientManager;
+import com.example.joe.talktalk.me.SettingActivity;
+import com.example.joe.talktalk.me.UserCenterActivity;
 import com.example.joe.talktalk.model.UserInfoModel;
 import com.example.joe.talktalk.utils.ToastUtil;
 
@@ -90,13 +92,13 @@ public class MeFragment extends BaseFragment {
     public void doClick(int viewId) {
         switch (viewId) {
             case R.id.rl_me:
-                ToastUtil.showShortToast(context, "个人信息");
+                UserCenterActivity.launch(context);
                 break;
             case R.id.fl_qccode:
                 ToastUtil.showShortToast(context, "二维码");
                 break;
             case R.id.ll_setting:
-                ToastUtil.showShortToast(context, "设置");
+                SettingActivity.launch(context);
                 break;
         }
     }
