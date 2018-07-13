@@ -1,9 +1,13 @@
 package com.example.joe.talktalk.im.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import com.example.joe.talktalk.me.SettingActivity;
 import com.example.joe.talktalk.me.UserCenterActivity;
 import com.example.joe.talktalk.model.UserInfoModel;
 import com.example.joe.talktalk.utils.ToastUtil;
+import com.example.joe.talktalk.utils.ZXingUtil;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -95,11 +100,28 @@ public class MeFragment extends BaseFragment {
                 UserCenterActivity.launch(context);
                 break;
             case R.id.fl_qccode:
+                createQcCode();
                 ToastUtil.showShortToast(context, "二维码");
                 break;
             case R.id.ll_setting:
                 SettingActivity.launch(context);
                 break;
         }
+    }
+
+    /**
+     * 生成二维码
+     */
+    private void createQcCode() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View view = LayoutInflater.from(context).inflate(R.layout.qccode_layout, null);
+        ImageView ivQcCode = view.findViewById(R.id.iv_qccode);
+        Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setContentView(view);
+        dialog.getWindow().setGravity(Gravity.CENTER);
+
+        Bitmap bitmap = ZXingUtil.createQRImage(AVImClientManager.getInstance().getClientId(), 400, 400);
+        ivQcCode.setImageBitmap(bitmap);
     }
 }
