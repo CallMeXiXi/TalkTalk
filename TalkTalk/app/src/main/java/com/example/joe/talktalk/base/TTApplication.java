@@ -34,7 +34,7 @@ public class TTApplication extends Application {
         //开启未读消息
         AVIMClient.setUnreadNotificationEnabled(true);
         //注册未读数量
-        AVIMMessageManager.setConversationEventHandler(new CustomConversationEventHandler(this));
+        //AVIMMessageManager.setConversationEventHandler(new CustomConversationEventHandler(this));
 
         // 放在 SDK 初始化语句 AVOSCloud.initialize() 后面，只需要调用一次即可
         // 在应用发布之前，请关闭调试日志，以免暴露敏感数据。

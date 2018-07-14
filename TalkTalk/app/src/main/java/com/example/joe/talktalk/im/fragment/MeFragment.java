@@ -101,7 +101,6 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.fl_qccode:
                 createQcCode();
-                ToastUtil.showShortToast(context, "二维码");
                 break;
             case R.id.ll_setting:
                 SettingActivity.launch(context);
@@ -121,7 +120,7 @@ public class MeFragment extends BaseFragment {
         dialog.getWindow().setContentView(view);
         dialog.getWindow().setGravity(Gravity.CENTER);
 
-        Bitmap bitmap = ZXingUtil.createQRImage(AVImClientManager.getInstance().getClientId(), 400, 400);
+        Bitmap bitmap = ZXingUtil.createQRImage(user.getNickname(), 400, 400);
         ivQcCode.setImageBitmap(bitmap);
     }
 }

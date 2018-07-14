@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -226,29 +227,33 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (which == 0) {//拍照
-                            int hasPermission = ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
-                            if (hasPermission == PackageManager.PERMISSION_GRANTED) {
-                                //有权限，打开相机
-                                openCamera();
-                            } else {
-                                //没权限，去打开权限
-                                if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
-                                    ToastUtil.showShortToast(mContext, "没有打开相机的权限");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                int hasPermission = ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA);
+                                if (hasPermission == PackageManager.PERMISSION_GRANTED) {
+                                    //有权限，打开相机
+                                    openCamera();
                                 } else {
-                                    requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.PERMISSION_CAMERA);
+                                    //没权限，去打开权限
+                                    if (!shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                                        ToastUtil.showShortToast(mContext, "没有打开相机的权限");
+                                    } else {
+                                        requestPermissions(new String[]{Manifest.permission.CAMERA}, Constants.PERMISSION_CAMERA);
+                                    }
                                 }
                             }
                         } else {//相册选择
-                            int hasPermission = ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE);
-                            if (hasPermission == PackageManager.PERMISSION_GRANTED) {
-                                //有权限，打开相册
-                                openAlbum();
-                            } else {
-                                //没有权限，提示打开权限
-                                if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                                    ToastUtil.showShortToast(mContext, "没有打开相册的权限");
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                int hasPermission = ContextCompat.checkSelfPermission(mContext, Manifest.permission.READ_EXTERNAL_STORAGE);
+                                if (hasPermission == PackageManager.PERMISSION_GRANTED) {
+                                    //有权限，打开相册
+                                    openAlbum();
                                 } else {
-                                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.PERMISSION_ALBUM);
+                                    //没有权限，提示打开权限
+                                    if (!shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                        ToastUtil.showShortToast(mContext, "没有打开相册的权限");
+                                    } else {
+                                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.PERMISSION_ALBUM);
+                                    }
                                 }
                             }
                         }

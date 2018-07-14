@@ -91,7 +91,7 @@ public class TalkFragment extends BaseFragment {
         mAdapter = new TalkAdapter(mContext, convsList);
 
         AVIMConversationsQuery query = AVImClientManager.getInstance().getAvimClient().getConversationsQuery();
-        query.whereEqualTo("tr", true);
+        //query.whereEqualTo("tr", true);
         query.findInBackground(new AVIMConversationQueryCallback() {
             @Override
             public void done(List<AVIMConversation> convs, AVIMException e) {

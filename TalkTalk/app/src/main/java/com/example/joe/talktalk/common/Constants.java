@@ -26,4 +26,9 @@ public class Constants {
 
     public static final String HANDLER_MESSAGE = "com.funchat.handler_message";
     public static final String UN_READ_MESSAGE_COUNT = "com.funchat.un_read_message_count";
+
+    public static final String EDIT_NICK_NAME = "edit_nick_name";
+    public static final String EDIT_SIGNATURE = "edit_signature";
+    public static final int EDIT_USER_NAME_CODE = 1;
+    public static final int EDIT_USER_SIGNATURE_CODE = 2;
 }

@@ -60,8 +60,8 @@ public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder
             holder.tvName.setText(model.getName());
             //时间
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-            String time = sdf.format(model.getLastMessage().getTimestamp());
-            holder.tvTime.setText(time);
+//            String time = sdf.format(model.getLastMessage().getTimestamp());
+//            holder.tvTime.setText(time);
             //未读数
             if (unreadCount == 0) {
                 holder.tvUnread.setVisibility(View.GONE);

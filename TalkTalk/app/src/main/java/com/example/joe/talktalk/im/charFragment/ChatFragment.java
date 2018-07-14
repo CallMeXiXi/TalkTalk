@@ -149,7 +149,7 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 @Override
                 public void done(AVIMException e) {
                     if (e == null) {
-                        Log.d(TAG, "发送成功！");
+                        Log.d(TAG, "发送成功");
                         mAdapter.notifyDataSetChanged();
                         scrollButton();
                     }

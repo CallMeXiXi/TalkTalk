@@ -84,5 +84,17 @@
         <activity
             android:name=".me.SettingActivity"
             android:screenOrientation="portrait" />
+        <!--显示用户头像-->
+        <activity
+            android:name=".me.usercenter.ShowUserImageActivity"
+            android:screenOrientation="portrait" />
+        <!--修改昵称界面-->
+        <activity
+            android:name=".me.usercenter.EditUserNameActivity"
+            android:screenOrientation="portrait" />
+        <!--修改个签界面-->
+        <activity
+            android:name=".me.usercenter.EditUserSignatureActivity"
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

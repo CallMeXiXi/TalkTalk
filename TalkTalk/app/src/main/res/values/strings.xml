@@ -29,4 +29,8 @@
     <string name="logout">退出登录</string>
     <string name="personal_info">个人信息</string>
     <string name="setting">设置</string>
+    <string name="user_image_icon">头像</string>
+    <string name="save">保存</string>
+    <string name="tv_edit_user_name">修改昵称</string>
+    <string name="tv_edit_user_signature">修改个性签名</string>
 </resources>
