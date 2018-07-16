@@ -87,22 +87,25 @@ public class EditUserNameActivity extends BaseAppCompatActivity {
      * 保存操作
      */
     private void save() {
-        name = etName.getText().toString();
-        if (TextUtils.isEmpty(name)) {
+        final String newName = etName.getText().toString();
+        if (TextUtils.isEmpty(newName)) {
             ToastUtil.showShortToast(this, "用户昵称不能为空啦");
             return;
         }
-        AVUser.getCurrentUser().saveInBackground(new SaveCallback() {
-            @Override
-            public void done(AVException e) {
-                AVUser.getCurrentUser().put("nickname", name);
-                AVUser.getCurrentUser().saveInBackground();
-
-                Intent intent = new Intent();
-                intent.putExtra(Constants.EDIT_NICK_NAME, name);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
+        if (name != newName) {
+            showLoadingDialog("正在保存...");
+            AVUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                @Override
+                public void done(AVException e) {
+                    UserInfoModel user = AVUser.getCurrentUser(UserInfoModel.class);
+                    user.put("nickname", newName);
+                    user.saveInBackground();
+                }
+            });
+            Intent intent = new Intent();
+            intent.putExtra(Constants.EDIT_NICK_NAME, newName);
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 }
