@@ -116,7 +116,7 @@ public class ChatActivity extends BaseAppCompatActivity {
         AVIMClient client = AVImClientManager.getInstance().getAvimClient();
         AVIMConversationsQuery conversationQuery = client.getConversationsQuery();
         conversationQuery.whereEqualTo("objectId", conversationId);
-        conversationQuery.containsMembers(Arrays.asList(AVImClientManager.getInstance().getClientId()));
+//        conversationQuery.containsMembers(Arrays.asList(AVImClientManager.getInstance().getClientId()));
         conversationQuery.findInBackground(new AVIMConversationQueryCallback() {
             @Override
             public void done(List<AVIMConversation> list, AVIMException e) {

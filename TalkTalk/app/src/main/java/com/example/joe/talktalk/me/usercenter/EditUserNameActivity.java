@@ -1,12 +1,13 @@
 package com.example.joe.talktalk.me.usercenter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.avos.avoscloud.AVException;
@@ -15,7 +16,6 @@ import com.avos.avoscloud.SaveCallback;
 import com.example.joe.talktalk.R;
 import com.example.joe.talktalk.base.BaseAppCompatActivity;
 import com.example.joe.talktalk.common.Constants;
-import com.example.joe.talktalk.me.UserCenterActivity;
 import com.example.joe.talktalk.model.UserInfoModel;
 import com.example.joe.talktalk.utils.ToastUtil;
 

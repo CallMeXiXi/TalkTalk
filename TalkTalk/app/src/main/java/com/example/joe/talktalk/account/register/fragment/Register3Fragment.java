@@ -58,7 +58,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
     private CircleImageView civUserIcon;
     private EditText mEtName;
     private EditText mEtSignature;
-    private EditText mEtEamil;
+    private EditText mEtEmail;
     private Spinner mSpinner;
     //头像图片选择、本地路径
     private CropParams cropParams;
@@ -105,7 +105,7 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
         civUserIcon = $(view, R.id.civ_user_icon);
         mEtName = $(view, R.id.et_user_nickname);
         mEtSignature = $(view, R.id.et_user_signature);
-        mEtEamil = $(view, R.id.et_user_email);
+        mEtEmail = $(view, R.id.et_user_email);
         mSpinner = $(view, R.id.s_user_sex);
     }
 
@@ -137,9 +137,10 @@ public class Register3Fragment extends BaseFragment implements CropHandler {
      * 注册用户
      */
     private void registerUser() {
-        email = mEtEamil.getText().toString();
+        email = mEtEmail.getText().toString();
         if (TextUtils.isEmpty(email)) {
             showShortToast("邮箱地址不能为空");
+            return;
         }
         String imageType = ".jpg";
         if (path.contains(".png")) {

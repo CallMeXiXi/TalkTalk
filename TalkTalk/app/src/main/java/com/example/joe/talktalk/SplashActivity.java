@@ -39,32 +39,32 @@ public class SplashActivity extends AppCompatActivity {
         Handler handler = new Handler();
         final UserInfoModel user = AVUser.getCurrentUser(UserInfoModel.class);
         if (user == null) {
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                LoginActivity.launch(SplashActivity.this);
-                                finish();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LoginActivity.launch(SplashActivity.this);
+                    finish();
+                }
+            }, 500);
+        } else {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    //加密手机号码
+                    String clientId = Base64Encoder.encode(user.getMobilePhoneNumber());
+                    AVImClientManager.getInstance().open(clientId, new AVIMClientCallback() {
+                        @Override
+                        public void done(AVIMClient avimClient, AVIMException e) {
+                            if (e != null) {
+                                Log.e(TAG, e.getCode() + " : " + e.getMessage() + " :　" + e.getAppCode());
+                                e.printStackTrace();
+                                ToastUtil.showLongToast(SplashActivity.this, e.getMessage());
+                            } else {
+                                MainActivity.launch(SplashActivity.this);
+                                SplashActivity.this.finish();
                             }
-                        }, 500);
-                    } else {
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                //加密手机号码
-                                String clientId = Base64Encoder.encode(user.getMobilePhoneNumber());
-                                AVImClientManager.getInstance().open(clientId, new AVIMClientCallback() {
-                                    @Override
-                                    public void done(AVIMClient avimClient, AVIMException e) {
-                                        if (e != null) {
-                                            Log.e(TAG, e.getCode() + " : " + e.getMessage() + " :　" + e.getAppCode());
-                                            e.printStackTrace();
-                                            ToastUtil.showLongToast(SplashActivity.this, e.getMessage());
-                                        } else {
-                                            MainActivity.launch(SplashActivity.this);
-                                            SplashActivity.this.finish();
-                                        }
-                                    }
-                                });
+                        }
+                    });
                 }
             }, 500);
         }

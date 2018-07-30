@@ -21,7 +21,7 @@
             android:hint="请输入手机号"
             android:inputType="phone"
             android:maxLength="11"
-            android:text="13824123020" />
+            android:text="" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -38,7 +38,7 @@
             android:drawableRight="@drawable/icon_password_hide"
             android:hint="请设置6~16位密码"
             android:inputType="textPassword"
-            android:text="123456" />
+            android:text="" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
