@@ -146,13 +146,13 @@ public class ChatFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             mAdapter.notifyDataSetChanged();
             conversation.sendMessage(msg, new AVIMConversationCallback() {
 
-                @Override
-                public void done(AVIMException e) {
-                    if (e == null) {
-                        Log.d(TAG, "发送成功");
-                        mAdapter.notifyDataSetChanged();
-                        scrollButton();
-                    }
+                        @Override
+                        public void done(AVIMException e) {
+                            if (e == null) {
+                                Log.d(TAG, "发送成功");
+                                mAdapter.notifyDataSetChanged();
+                                scrollButton();
+                            }
                 }
             });
         }

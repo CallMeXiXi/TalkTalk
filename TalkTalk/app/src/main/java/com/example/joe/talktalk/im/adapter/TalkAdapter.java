@@ -1,6 +1,9 @@
 package com.example.joe.talktalk.im.adapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -25,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder> {
 
+    private Dialog dialog;
     private int unreadCount;
     private Context context;
     private List<AVIMConversation> convs;
@@ -75,6 +79,32 @@ public class TalkAdapter extends RecyclerView.Adapter<TalkAdapter.TalkViewHolder
             @Override
             public void onClick(View view) {
                 ChatActivity.launch(context, model.getName(), model.getConversationId());
+            }
+        });
+
+        holder.itemView.setLongClickable(true);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setCancelable(true);
+                builder.setMessage("确定删除此聊天吗?").
+                        setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialog.dismiss();
+                            }
+                        }).
+                        setPositiveButton(R.string.sure, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //刷新列表
+//                                getAVIMConversationQuery();
+                            }
+                        });
+                dialog = builder.create();
+                dialog.show();
+                return true;
             }
         });
     }

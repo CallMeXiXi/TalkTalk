@@ -1,12 +1,14 @@
 package com.example.joe.talktalk.im.fragment;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -90,6 +92,24 @@ public class TalkFragment extends BaseFragment {
         convsList = new ArrayList<>();
         mAdapter = new TalkAdapter(mContext, convsList);
 
+        //初始化聊天好友列表
+        getAVIMConversationQuery();
+    }
+
+    @Override
+    public void initListener() {
+    }
+
+    @Override
+    public void doClick(int viewId) {
+
+    }
+
+
+    /**
+     * 获取联系人列表
+     */
+    public void getAVIMConversationQuery() {
         AVIMConversationsQuery query = AVImClientManager.getInstance().getAvimClient().getConversationsQuery();
         query.whereEqualTo("tr", true);
         query.findInBackground(new AVIMConversationQueryCallback() {
@@ -108,14 +128,6 @@ public class TalkFragment extends BaseFragment {
         });
     }
 
-    @Override
-    public void initListener() {
-    }
-
-    @Override
-    public void doClick(int viewId) {
-
-    }
 
     @Override
     public void onDestroy() {

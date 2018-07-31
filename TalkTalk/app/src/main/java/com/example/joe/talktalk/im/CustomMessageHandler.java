@@ -6,8 +6,10 @@ import android.util.Log;
 
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.avos.avoscloud.im.v2.AVIMTypedMessageHandler;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
 import com.example.joe.talktalk.common.Constants;
 
 /**
@@ -21,7 +23,7 @@ public class CustomMessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessa
     private Context context;
 
     public CustomMessageHandler(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
     }
 
     @Override
@@ -32,7 +34,7 @@ public class CustomMessageHandler extends AVIMTypedMessageHandler<AVIMTypedMessa
             if (client.getClientId().equals(clientId)) {
 
                 // 过滤掉自己发的消息
-                if (!message.getFrom().equals(clientId)) {
+                if (!message.getFrom().equals(client.getClientId())) {
                     Intent intent = new Intent();
                     intent.setAction(Constants.HANDLER_MESSAGE);
                     intent.putExtra("message", message);

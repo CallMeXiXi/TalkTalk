@@ -11,11 +11,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.FollowCallback;
 import com.example.joe.talktalk.base.BaseAppCompatActivity;
 import com.example.joe.talktalk.im.fragment.ContactsFragment;
 import com.example.joe.talktalk.im.fragment.FindFragment;
 import com.example.joe.talktalk.im.fragment.MeFragment;
 import com.example.joe.talktalk.im.fragment.TalkFragment;
+import com.example.joe.talktalk.model.UserInfoModel;
 
 public class MainActivity extends BaseAppCompatActivity {
 
@@ -41,7 +45,6 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -66,17 +69,17 @@ public class MainActivity extends BaseAppCompatActivity {
     public void initTitle() {
         mToolbar.setTitle("TT");
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
 
     @Override
     public void initListener() {
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                MainActivity.this.finish();
-            }
-        });
+//        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                MainActivity.this.finish();
+//            }
+//        });
     }
 
     @Override

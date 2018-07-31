@@ -3,13 +3,18 @@ package com.example.joe.talktalk.base;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.FollowCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMMessageManager;
 import com.avos.avoscloud.im.v2.AVIMTypedMessage;
 import com.example.joe.talktalk.common.Constants;
+import com.example.joe.talktalk.im.AVImClientManager;
 import com.example.joe.talktalk.im.CustomConversationEventHandler;
 import com.example.joe.talktalk.im.CustomMessageHandler;
+import com.example.joe.talktalk.model.UserInfoModel;
 import com.mob.MobSDK;
 
 /**

@@ -36,6 +36,11 @@ public class AVImClientManager {
         avimClient.open(callback);
     }
 
+
+    public void close(AVIMClientCallback callback) {
+        avimClient.close(callback);
+    }
+
     public AVIMClient getAvimClient() {
         return avimClient;
     }
